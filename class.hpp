@@ -1,23 +1,30 @@
 #pragma once
 
-#include <function.hpp>
+#include "function.hpp"
 /*
 #include <iostream>
 #include <stdlib.h>
 #include <stdio.h>
 */
 
+//	item class and its derive classes
+//-------------------------------------------------------------------
 //
 //	item class
 //
 class item{
 
 public:
-	item(	std::string arg1, 	std::string arg2):
-			name(arg1),			description(arg2){}
+	item(	std::string arg1, 	std::string arg2,
+			int arg3,			int arg4):
+			name(arg1),			description(arg2),
+			stack_limit(arg4),	current_stack(current_stack){}
+	//change field
+
 
 protected:
 	std::string name, description;
+	int stack_limit, current_stack;
 };
 
 //
@@ -40,7 +47,7 @@ enum equipmentType{
 	belt,
 	undergarmet,
 	earrings
-}
+};
 
 
 //
@@ -63,9 +70,8 @@ public:
 				double arg12,
 				std::string arg13,
 				equipmentType arg14)
-			:
-				name(arg1),
-				description(arg2),
+			:	
+		item(	arg1,	arg2, 1, 0),
 				req_str(arg3), 
 				req_int(arg4), 
 				req_luck(arg5), 
@@ -77,7 +83,7 @@ public:
 				req_mdef(arg11),
 				req_stam(arg12),
 				modifier(arg13),
-				equipmentType(arg14);{}
+				type(arg14){}
 	//
 	//methods for retrieving a field
 	//
@@ -116,15 +122,49 @@ public:
 protected: 
 	std::string modifier;
 	equipmentType type;
-	double 	req_str, 
-			req_int, 
-			req_luck, 
-			req_agi, 
-			req_hp, 
-			req_mp,
-			req_dmg,
-			req_def,
-			req_mdef,
+	double 	req_str,	req_int, 	req_luck, 
+			req_agi, 	req_hp, 	req_mp,
+			req_dmg,	req_def,	req_mdef,
 			req_stam;
+};
 
+class consumables : public item {
+public:
+	consumables(std::string arg1, 
+				std::string arg2,
+				int arg3,
+				std::string arg4)
+			:
+				item(arg1, arg2, arg3, 0),
+				effect(arg4){}
+
+protected:
+	std::string effect;
+};
+
+//	characters and its derived classes
+//------------------------------------------------------------------------
+
+//
+//	character class
+//
+
+class character {
+public:
+	character()
+
+protected:
+	double 	str, _int, luck, agi, hp, mp, def, mdef, 
+			stam, dmg, max_hp, max_mp, max_stam;
+	std::string name, description;
+	//check if the character is a player
+	bool player_buff; 
+	//all euipped item
+	std::vector<equipment> equipped;
+	//inventory is full of items and its derived clases
+	//visit https://stackoverflow.com/questions/6274136/objects-of-different-classes-in-a-single-vector
+	//for example
+	std::vector<item*> inventory; 
+	//this character will drop the following when defeated
+	std::string drop;
 };
