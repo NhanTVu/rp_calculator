@@ -1,5 +1,6 @@
 
-#include "class.hpp"
+#include "character.hpp"
+#include "item.hpp"
 
 int main (void){
 
