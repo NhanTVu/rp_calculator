@@ -86,8 +86,8 @@ class player : public character{
 public:
 	player(	std::string _name, 	
 			std::string _description,
-			std::string _drop = "",
-			std::string _buff = "playerBuff ",
+			//std::string _drop = "",
+			//std::string _buff = "playerBuff ",
 			double _str,
 			double _int_,
 			double _luck,
@@ -99,7 +99,7 @@ public:
 			double _stam,
 			int _id)
 		:
-	character(_name, _description, _drop, _buff,
+	character(_name, _description, "", "playerBuff ",
 		_str, _int_, _luck, _agi, _hp, _mp, 
 		_def,_mdef, _stam, _id){}
 };
