@@ -35,8 +35,21 @@ public:
 			name(_name), description(_description), bind(_bind),
 			stack_limit(_stack_limit),	current_stack(_current_stack),
 			id(_id){}
-	//change field
+	//method to retrieve field
+	std::string getName(){return name;}
+	std::string getDescription(){return description;}
+	std::string getBind(){return bind;}
+	int getStackLimit(){return stack_limit;}
+	int getStack(){return current_stack;}
+	int getId(){return id;}
 
+	//method to change field
+	void changeName(std::string input){name = input;}
+	void changeDescription(std::string input){description = input;}
+	void changeBind(std::string input){bind = input;}
+	void changeStackLimit(int input){stack_limit = input;}
+	void changeStack(int input){current_stack = input;}
+	void changeId(int input){id = input;}
 
 protected:
 	std::string name, description, bind;
@@ -66,8 +79,7 @@ public:
 				std::string _modifier,				
 				equipmentType _type)
 			:	
-		item(	name, description, 
-				_bind, 1, 0, _id),
+		item(	_name, _description,_bind,1,0,_id),
 				req_str(_req_str), 
 				req_int(_req_int), 
 				req_luck(_req_luck), 
@@ -83,37 +95,37 @@ public:
 	//
 	//methods for retrieving a field
 	//
-	std::string get_name(){return name;}
-	std::string get_description(){return description;}
-	std::string get_modifier(){return modifier;}
-	equipmentType get_type(){return type;}
-	double get_str(){return req_str;}
-	double get_int(){return req_int;}
-	double get_luck(){return req_luck;}
-	double get_agi(){return req_agi;}
-	double	get_hp(){return req_hp;}
-	double	get_mp(){return req_mp;}
-	double	get_dmg(){return req_dmg;}
-	double	get_def(){return req_def;}
-	double	get_mdef(){return req_mdef;}
-	double	get_stam(){return req_stam;}
+	std::string getName(){return name;}
+	std::string getDescription(){return description;}
+	std::string getModifier(){return modifier;}
+	equipmentType getType(){return type;}
+	double getStr(){return req_str;}
+	double getInt(){return req_int;}
+	double getLuck(){return req_luck;}
+	double getAgi(){return req_agi;}
+	double	getHp(){return req_hp;}
+	double	getMp(){return req_mp;}
+	double	getDmg(){return req_dmg;}
+	double	getDef(){return req_def;}
+	double	getMdef(){return req_mdef;}
+	double	getStam(){return req_stam;}
 	//
 	//methods for changing a field
 	//
-	void change_str(double arg){req_str = arg;}
-	void change_int(double arg){req_int = arg;}
-	void change_luck(double arg){req_luck = arg;}
-	void change_agi(double arg){req_agi = arg;}
-	void change_hp(double arg){req_hp = arg;}
-	void change_mp(double arg){req_mp = arg;}
-	void change_dmg(double arg){req_dmg = arg;}
-	void change_def(double arg){req_def = arg;}
-	void change_mdef(double arg){req_mdef = arg;}
-	void change_stam(double arg){req_stam = arg;}
-	void change_name (std::string arg){name = arg;}
-	void change_description (std::string arg){description = arg;}
-	void change_modifier (std::string arg){modifier = arg;}
-	void change_type(equipmentType arg){type = arg;}
+	void changeStr(double arg){req_str = arg;}
+	void changeInt(double arg){req_int = arg;}
+	void changeLuck(double arg){req_luck = arg;}
+	void changeAgi(double arg){req_agi = arg;}
+	void changeHp(double arg){req_hp = arg;}
+	void changeMp(double arg){req_mp = arg;}
+	void changeDmg(double arg){req_dmg = arg;}
+	void changeDef(double arg){req_def = arg;}
+	void changeMdef(double arg){req_mdef = arg;}
+	void changeStam(double arg){req_stam = arg;}
+	void changeName (std::string arg){name = arg;}
+	void changeDescription (std::string arg){description = arg;}
+	void changeModifier (std::string arg){modifier = arg;}
+	void changeType(equipmentType arg){type = arg;}
 
 protected: 
 	std::string modifier;
