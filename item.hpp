@@ -29,6 +29,7 @@ enum equipmentType{
 class item{
 
 public:
+	//constructor 
 	item(	std::string _name, 	std::string _description,
 			std::string _bind,
 			int _stack_limit, int _current_stack, int _id):
