@@ -8,20 +8,30 @@ int main (void){
 
 	world_builder world;
 	equipmentType Weapon = weapon;
-	equipment stuff("The First Weapon",
+	equipment First_Weapon("The First Weapon",
 		"The first weapon","The first person",
-		100,100,100,100,100,100,100,100,100,100,1,
+		1,100,100,100,100,100,100,100,100,100,100,
 		"Allstats x1.2 int x1.5", Weapon);
 
-	item rock1("Stone","The first item",
-		"", 1,0,6);
+	item rock1("Stone1","The first item",
+		"", 1,0,6, BaseItem);
 	item rock2("Stone2","The first item",
-		"", 1,0,7);
-	//debugger cde
+		"", 1,0,6, BaseItem);
+	
+	//Test case code
 	//world.DoSomething();
 	world.addItem(rock1);
 	world.addItem(rock2);
-	//world.removeItemById(1);
+	world.addItem(First_Weapon);
+	world.removeItemById(6);
+	world.addItem(rock2);
 
-	std::cout<<"-ran successfully"<<'\n';
+	//using static cast, req u to know what you are doing
+	//alternatively use dynamic_cast, but require class to have virtual destructor
+	equipment* temp = static_cast<equipment*>(world.getItemPtrById(1));
+	equipment a = *temp;
+	//temp.getStr();
+
+	std::cout<<"-----------------"<<'\n'
+	<<"-program ran successfully"<<'\n';
 }

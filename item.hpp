@@ -2,6 +2,20 @@
 #include "header.hpp"
 
 //
+//	item subclass
+//
+
+enum ItemSubclass{
+	_Base,
+	_Equipment,
+	_Consumables
+};
+
+ItemSubclass BaseItem = _Base;
+ItemSubclass EquipmentItem = _Equipment;
+ItemSubclass ConsumablesItem = _Consumables;
+
+//
 //	equipment type enum
 //
 enum equipmentType{
@@ -32,10 +46,11 @@ public:
 	//constructor 
 	item(	std::string _name, 	std::string _description,
 			std::string _bind,
-			int _stack_limit, int _current_stack, int _id):
+			int _stack_limit, int _current_stack, int _id,
+			ItemSubclass _subclass):
 			name(_name), description(_description), bind(_bind),
 			stack_limit(_stack_limit),	current_stack(_current_stack),
-			id(_id){}
+			id(_id), subclass(_subclass){}
 	//method to retrieve field
 	std::string getName(){return name;}
 	std::string getDescription(){return description;}
@@ -55,6 +70,7 @@ public:
 protected:
 	std::string name, description, bind;
 	int stack_limit, current_stack, id;
+	ItemSubclass subclass;
 };
 
 //
@@ -66,6 +82,7 @@ public:
 	equipment(	std::string _name, 	
 				std::string _description,
 				std::string _bind,
+				int _id,
 				double _req_str,
 				double _req_int,
 				double _req_luck,
@@ -76,17 +93,17 @@ public:
 				double _req_def,
 				double _req_mdef,
 				double _req_stam,
-				int _id,
 				std::string _modifier,				
 				equipmentType _type)
 			:	
-		item(	_name, _description,_bind,1,0,_id),
+		item(	_name, _description,_bind,1,0,_id, 
+				EquipmentItem),
 				req_str(_req_str), 
 				req_int(_req_int), 
 				req_luck(_req_luck), 
 				req_agi(_req_agi), 
 				req_hp(_req_hp), 
-				req_mp(_req_mp),
+				req_mp(_req_mp),	
 				req_dmg(_req_dmg),
 				req_def(_req_def),
 				req_mdef(_req_mdef),
@@ -146,7 +163,8 @@ public:
 				std::string _effect)
 			:
 				item(_name, _description, 
-				_bind, _max_stack, 0, _id),
+				_bind, _max_stack, 0, _id,
+				ConsumablesItem),
 				effect(_effect){}
 
 protected:

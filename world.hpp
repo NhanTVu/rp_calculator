@@ -12,8 +12,8 @@ public:
 	bool DiceRoll(int side, int success, double modifier);
 	//item methods
 	void addItem(item Item);
-	void removeItemByID(int id);
-	item getItemByID(int id);
+	void removeItemById(int id);
+	item* getItemPtrById(int id);
 
 	//character methods
 	void addCharacter(character Character);
@@ -34,9 +34,9 @@ void world_builder::DoSomething(){
 bool world_builder::DiceRoll(int side, int success, double modifier){
 		srand(time(NULL));			//random seed
 		int roll = rand()%side+1; 	//return a num 1-side
-		roll*= modifier; 			//mult result *modifier
+		roll*= modifier; 			//note that extra decimal will be truncated here
 		if(roll < success){ return false;}
-		else{ return true;}
+		else{ return true;}			//true is a success
 }
 
 //item methods
@@ -51,6 +51,9 @@ void world_builder::addItem(item Item){
 	for (i=0; i<all_items.size(); i++){
 		if(all_items[i]->getId() == Item.getId()){
 			id_exist = true;
+			//confirmation print
+			std::cout<<"-----------------"<<'\n'<<
+			"There is already an item with that id"<<'\n';
 		}
 		/*
 		//debugger print
@@ -59,6 +62,9 @@ void world_builder::addItem(item Item){
 		*/
 		if(all_items[i]->getName().compare(Item.getName())==0){
 			name_exist = true;
+			//confirmation print
+			std::cout<<"-----------------"<<'\n'<<
+			"There is already an item with that name"<<'\n';
 		}
 		/*
 		//debugger print		
@@ -68,6 +74,9 @@ void world_builder::addItem(item Item){
 		*/
 		if(all_items[i]->getDescription().compare(Item.getDescription())==0){
 			info_exist = true;
+			//confirmation print
+			std::cout<<"-----------------"<<'\n'<<
+			"There is already an item with that description"<<'\n';
 		}
 		/*
 		//debugger print		
@@ -75,16 +84,6 @@ void world_builder::addItem(item Item){
 		<<"| item's description: "<<Item.getDescription()<<"|"<<'\n'<<
 		"comparison yield: "<<all_items[i]->getDescription().compare(Item.getDescription())<<'\n';
 		*/
-
-	}
-	if(id_exist){
-		std::cout<<"There is already an item with that id"<<'\n';
-	}
-	if(name_exist){
-		std::cout<<"There is already an item with that name"<<'\n';
-	}
-	if(info_exist){
-		std::cout<<"There is already an item with that description"<<'\n';
 	}
 	//if pass all test	
 	if(	!(name_exist) 	&& 
@@ -93,36 +92,66 @@ void world_builder::addItem(item Item){
 	{				
 		item* entry = &Item;			//typecast into *item
 		all_items.push_back(entry);		//actually adding the *item
-		//debugger print
-		std::cout<<"item added"<<'\n';
+		//conformation print
+		std::cout<<"-----------------"<<'\n'<<"item added"<<'\n';
 	}
 }
 
-void world_builder::removeItemByID(int id){
+void world_builder::removeItemById(int id){
 	int i;
 	if (all_items.empty()){
-		std::cout<<"There are no items"<<'\n';
+		std::cout<<"There are no items with that id"<<'\n';
 	}else{
 		for (i=0; i<all_items.size(); i++){		//check all items
 			if( all_items[i]->getId()==id){
 				all_items.erase(all_items.begin()+i);
+				//debugger print
+				std::cout<<"-----------------"<<'\n'<<"Item (id: "
+				<<all_items[i]->getId()<<") has been removed"<<'\n';
 			}
 		}
 	}
 
 }
-/*
-item world_builder::getItemByID(int id){
+
+item* world_builder::getItemPtrById(int id){
+	
+	//debugger print
+	//std::cout<<"-----------------"<<
+	//'\n'<<"running getItemById..."<<'\n';
+
 	int i;
 	if (all_items.empty()){
-		std::cout<<"There are no items"<<'\n';
+		//error print
+		std::cout<<"-----------------"<<'\n'
+		<<"!!!ERROR!!"<<
+		"There are no items"<<'\n';
+		return NULL;
 	}else{
+		//debugger print
+		//std::cout<<"Here 1"<<'\n';
 		for (i=0; i<all_items.size(); i++){		//check all items
+			//debugger print
+			//std::cout<<"Here 2"<<'\n';
 			if( all_items[i]->getId()==id){
+				//debugger print
+				//std::cout<<"Here 3"<<'\n';
+				//confirmation print
+				std::cout<<"-----------------"<<
+				'\n'<<"item pointer retrieved"<<'\n';
 				return all_items[i];
 			}
 		}
+		//error print
+		std::cout<<"-----------------"<<'\n'
+		<<"!!!ERROR!!"<<
+		"There are no items with the id: "
+		<<id<<'\n';
+		return NULL;
 	}
-}*/
+	//debugger print
+	std::cout<<"-----------------"<<
+	'\n'<<"no result from getItemById"<<'\n';
+}
 
 
